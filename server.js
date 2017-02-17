@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var request = require('request').defaults({ encoding: null });
 app.use(cors());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -15,8 +16,8 @@ app.listen(8080, function () {
 })
 
 app.post('/words', function (req, res) {
-	console.log(req.body[0]["difficulty"]);
- 
+	console.log(req.body.difficulty);
+    
 })
 
 
