@@ -16,7 +16,21 @@ app.listen(8080, function () {
 })
 
 app.post('/words', function (req, res) {
-	console.log(req.body.difficulty);
+	var userDifficulty = req.body.difficulty;
+	var userCount = req.body.count;
+	var words = [];
+	request('http://linkedin-reach.hagbpyjegb.us-west-2.elasticbeanstalk.com/words?difficulty='+ userDifficulty + '&count=' + userCount +'&minLength=4', function(err, res, body){
+		words.push(body.toString('utf8'));
+		if (words.length >= 1){
+			printResponse()
+		}
+	});
+ function printResponse(){
+ 	console.log("printing....");
+ 	console.log(words);
+ }
+		
+
     
 })
 
