@@ -17,20 +17,22 @@ app.listen(8080, function () {
 
 app.post('/words', function (req, res) {
 	var userDifficulty = req.body.difficulty;
-	var userCount = req.body.count;
+	var userCount = req.body.rounds;
 	var words = [];
+	// console.log("difficulty!!!   "+userDifficulty );
+	// console.log("ROUNDS!!!  " +userCount);
 	request('http://linkedin-reach.hagbpyjegb.us-west-2.elasticbeanstalk.com/words?difficulty='+ userDifficulty + '&count=' + userCount +'&minLength=4', function(err, res, body){
-		words.push(body.toString('utf8'));
-		if (words.length >= 1){
-			printResponse()
+		var requestString = body.toString('utf8').replace(/(\r\n|\n|\r)/gm," ");
+		wordsArray = requestString.split(' ');
+		if (wordsArray.length >= 1){
+			sendArray(wordsArray);
 		}
+	
 	});
- function printResponse(){
- 	console.log("printing....");
- 	console.log(words);
- }
-		
 
+		 function sendArray(input){
+	 	res.send(input)
+	 }
     
 })
 
