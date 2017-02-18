@@ -3,6 +3,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var request = require('request').defaults({ encoding: null });
+var port = process.env.PORT || CONFIG.port;
+app.listen(port);
 app.use(cors());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -11,9 +13,7 @@ app.use(function(req, res, next) {
 });
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.listen(8080, function () {
- console.log('Example app listening on port 8080!')
-})
+
 
 app.post('/words', function (req, res) {
 	var userDifficulty = req.body.difficulty;
@@ -27,13 +27,11 @@ app.post('/words', function (req, res) {
 		if (wordsArray.length >= 1){
 			sendArray(wordsArray);
 		}
-	
+
 	});
 
 		 function sendArray(input){
 	 	res.send(input)
 	 }
-    
+
 })
-
-
